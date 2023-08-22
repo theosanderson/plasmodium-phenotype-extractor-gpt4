@@ -4,7 +4,8 @@ import { OpenAIStream, StreamingTextResponse } from 'ai'
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || ''
+  apiKey: process.env.OPENAI_API_KEY || '',
+  apiBase: "https://openrouter.ai/api/v1"
 })
 
 // IMPORTANT! Set the runtime to edge
@@ -18,7 +19,11 @@ export async function POST(req: Request) {
   const response = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
     stream: true,
-    messages: messages
+    messages: messages,
+    
+           headers:{
+            "HTTP-Referer": OPENROUTER_REFERRER
+        },
   })
 
   // Convert the response into a friendly text-stream
