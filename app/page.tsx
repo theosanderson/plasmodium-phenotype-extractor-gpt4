@@ -47,7 +47,6 @@ export default function PostEditorPage() {
       completion = completion.replace(/,}/g, "}")
       completion = completion.replace(/,]/g, "]")
 
-      window.com = completion
      
       // attempt to parse the completion
       try {
