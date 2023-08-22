@@ -1,7 +1,7 @@
 // ./app/api/chat/route.ts
 import OpenAI from 'openai'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
-
+const OPENROUTER_REFERRER = "https://github.com/alonsosilvaallende/chatplotlib-openrouter"
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
