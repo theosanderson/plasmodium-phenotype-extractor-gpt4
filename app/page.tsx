@@ -39,10 +39,16 @@ export default function PostEditorPage() {
     async (c: string) => {
       
       let completion = await complete(c)
+      if (!completion) throw new Error('Failed to check typos')
       // replace \n with ''
       completion = completion.replace(/(\r\n|\n|\r)/gm, "")
+      // sometimes the completion has trailing commas making it invalid json
+      // how can we fix this?
+      completion = completion.replace(/,}/g, "}")
+      completion = completion.replace(/,]/g, "]")
+
       window.com = completion
-      if (!completion) throw new Error('Failed to check typos')
+     
       // attempt to parse the completion
       try {
         const parsed = JSON.parse(completion)
